@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Institutional Options Desk — Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d12;
+    --surface: #111520;
+    --surface2: #171d2e;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --gold: #c9a84c;
+    --gold2: #e8c96e;
+    --teal: #38c9b0;
+    --red: #e05c5c;
+    --green: #4ec994;
+    --blue: #5b9cf6;
+    --muted: #8891a8;
+    --text: #e8eaf0;
+    --text2: #c2c8d8;
+    --heading: #f4f6fb;
+    --mono: 'DM Mono', monospace;
+    --serif: 'Playfair Display', serif;
+    --sans: 'DM Sans', sans-serif;
+    --radius: 8px;
+    --radius-lg: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border2);
+    padding: 0 2.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+  }
+  .logo span { color: var(--muted); font-family: var(--mono); font-size: 0.75rem; margin-left: 10px; }
+  nav { display: flex; gap: 2px; }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+    cursor: pointer;
+  }
+  nav a:hover, nav a.active { color: var(--gold); background: rgba(201,168,76,0.08); }
+
+  /* ── LAYOUT ── */
+  .shell { display: flex; min-height: calc(100vh - 58px); }
+  .sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 58px;
+    height: calc(100vh - 58px);
+    overflow-y: auto;
+  }
+  .sb-section {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
+  .sb-link {
+    display: block;
+    padding: 5px 1.5rem;
+    font-size: 0.82rem;
+    color: var(--text2);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .sb-link:hover { color: var(--gold2); border-left-color: var(--gold); background: rgba(201,168,76,0.04); }
+  .sb-link.active { color: var(--gold2); border-left-color: var(--gold); }
+
+  main {
+    flex: 1;
+    padding: 3rem 4rem;
+    max-width: 1000px;
+  }
+
+  /* ── PAGE SECTIONS ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── TYPOGRAPHY ── */
+  h1 {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--heading);
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--heading);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.3px;
+    margin: 1.5rem 0 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+  }
+  p { color: var(--text2); margin-bottom: 0.9rem; }
+  strong { color: var(--text); font-weight: 600; }
+  .lead { font-size: 1.05rem; color: var(--text); margin-bottom: 1.8rem; border-left: 3px solid var(--gold); padding-left: 1rem; }
+
+  /* ── TAG ── */
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .tag-call { background: rgba(78,201,148,0.12); color: var(--green); border: 1px solid rgba(78,201,148,0.25); }
+  .tag-put { background: rgba(224,92,92,0.12); color: var(--red); border: 1px solid rgba(224,92,92,0.25); }
+  .tag-neutral { background: rgba(91,156,246,0.12); color: var(--blue); border: 1px solid rgba(91,156,246,0.25); }
+  .tag-inst { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+  .tag-vol { background: rgba(56,201,176,0.12); color: var(--teal); border: 1px solid rgba(56,201,176,0.25); }
+
+  /* ── CARDS ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--border2); }
+  .card-title { font-weight: 600; color: var(--heading); margin-bottom: 0.35rem; font-size: 0.95rem; }
+  .card-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .card p { font-size: 0.85rem; color: var(--muted); margin: 0; line-height: 1.55; }
+
+  /* ── PAYOFF CHART ── */
+  .payoff-wrap {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin: 1.2rem 0;
+  }
+  .payoff-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .payoff-title { font-weight: 600; color: var(--heading); font-size: 0.95rem; }
+  .payoff-tags { display: flex; gap: 4px; }
+  canvas { display: block; width: 100%; }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border2);
+  }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 0.87rem; color: var(--text2); }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .up { color: var(--green); }
+  .dn { color: var(--red); }
+  .nu { color: var(--blue); }
+
+  /* ── GREEK PILL ── */
+  .greek-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin: 1rem 0; }
+  .greek-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.8rem;
+    text-align: center;
+  }
+  .greek-symbol { font-family: var(--serif); font-size: 1.8rem; color: var(--gold2); line-height: 1; margin-bottom: 4px; }
+  .greek-name { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 6px; }
+  .greek-desc { font-size: 0.78rem; color: var(--text2); line-height: 1.45; }
+
+  /* ── SCENARIO BOX ── */
+  .scenario {
+    background: linear-gradient(135deg, rgba(201,168,76,0.04), rgba(56,201,176,0.04));
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .scenario-label { font-family: var(--mono); font-size: 0.68rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .scenario p { font-size: 0.88rem; color: var(--text); margin: 0; }
+
+  /* ── FORMULA ── */
+  .formula {
+    font-family: var(--mono);
+    background: var(--surface2);
+    border-left: 3px solid var(--gold);
+    padding: 0.7rem 1rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 0.8rem 0;
+    font-size: 0.85rem;
+    color: var(--gold2);
+    overflow-x: auto;
+  }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+
+  /* ── INTERACTIVE PAYOFF ── */
+  .controls { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .ctrl-group { display: flex; flex-direction: column; gap: 4px; }
+  .ctrl-group label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.7px; font-family: var(--mono); }
+  .ctrl-group input[type=range] { accent-color: var(--gold); width: 140px; }
+  .ctrl-val { font-family: var(--mono); font-size: 0.82rem; color: var(--gold2); }
+
+  /* ── STRATEGY MATRIX ── */
+  .matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .strat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .strat-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-1px); }
+  .strat-name { font-weight: 600; color: var(--heading); font-size: 0.92rem; margin-bottom: 4px; }
+  .strat-legs { font-family: var(--mono); font-size: 0.72rem; color: var(--teal); margin-bottom: 6px; }
+  .strat-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2.5rem 3rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-sub { font-family: var(--mono); font-size: 0.75rem; color: var(--gold); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 0.8rem; }
+  .hero h1 { font-size: 2.8rem; margin-bottom: 0.8rem; }
+  .hero p { font-size: 1rem; color: var(--text2); max-width: 560px; margin: 0; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main { padding: 2rem 1.5rem; }
+    .sidebar { display: none; }
+    .greek-grid { grid-template-columns: repeat(3,1fr); }
+    .matrix { grid-template-columns: 1fr; }
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Institutional Options Desk <span>REFERENCE v2.0</span></div>
+  <nav>
+    <a class="active" onclick="showPage('fundamentals',this)">Fundamentals</a>
+    <a onclick="showPage('greeks',this)">Greeks</a>
+    <a onclick="showPage('strategies',this)">Strategies</a>
+    <a onclick="showPage('institutional',this)">Institutional</a>
+    <a onclick="showPage('volatility',this)">Volatility</a>
+    <a onclick="showPage('payoff',this)">Payoff Lab</a>
+  </nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main>
+
+    <!-- ══════════════════════════════════════════
+         PAGE: FUNDAMENTALS
+    ══════════════════════════════════════════ -->
+    <div class="page active" id="page-fundamentals">
+      <div class="hero">
+        <div class="hero-sub">Institutional Options Desk</div>
+        <h1>Options — Master Reference</h1>
+        <p>Complete theory, strategies, and institutional applications for professional derivatives traders.</p>
+      </div>
+
+      <h2>What Is an Option?</h2>
+      <p class="lead">An option is a contractual right — not an obligation — to buy or sell an underlying asset at a specified strike price on or before a stated expiry. The buyer pays a premium; the seller collects it and assumes the obligation.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-meta">CALL OPTION</div>
+          <div class="card-title">Right to Buy</div>
+          <p>Grants the holder the right to purchase the underlying at the strike price. Value rises as the underlying appreciates. Max loss = premium paid.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta">PUT OPTION</div>
+          <div class="card-title">Right to Sell</div>
+          <p>Grants the holder the right to sell the underlying at the strike price. Value rises as the underlying depreciates. Max loss = premium paid.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta">AMERICAN</div>
+          <div class="card-title">Exercisable Anytime</div>
+          <p>Can be exercised at any point before or on expiry. Commands a higher premium than European. Equities and ETFs are typically American style.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta">EUROPEAN</div>
+          <div class="card-title">Exercisable at Expiry</div>
+          <p>Exercise is only possible at expiry. Indices (SPX, VIX) are typically European. Allows cleaner pricing via Black-Scholes.</p>
+        </div>
+      </div>
+
+      <h2>Moneyness</h2>
+      <table>
+        <thead><tr><th>State</th><th>Call Condition</th><th>Put Condition</th><th>Intrinsic Value</th><th>Time Value</th></tr></thead>
+        <tbody>
+          <tr><td><strong>In-The-Money (ITM)</strong></td><td class="up">S &gt; K</td><td class="dn">S &lt; K</td><td class="up">Positive</td><td>Positive</td></tr>
+          <tr><td><strong>At-The-Money (ATM)</strong></td><td class="nu">S ≈ K</td><td class="nu">S ≈ K</td><td>Zero</td><td>Maximum</td></tr>
+          <tr><td><strong>Out-of-The-Money (OTM)</strong></td><td class="dn">S &lt; K</td><td class="up">S &gt; K</td><td>Zero</td><td>Positive</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Option Premium Decomposition</h2>
+      <div class="formula">Premium = Intrinsic Value + Time Value</div>
+      <div class="formula">Intrinsic Value (Call) = max(S − K, 0)</div>
+      <div class="formula">Intrinsic Value (Put)  = max(K − S, 0)</div>
+      <p>Time value decays non-linearly — it accelerates as expiry approaches (theta decay). ATM options have the highest time value. Deep ITM and deep OTM options have minimal time value.</p>
+
+      <h2>Black-Scholes Framework</h2>
+      <p>The Black-Scholes model prices European options under five assumptions: log-normally distributed returns, constant volatility, no dividends, risk-free rate constant, frictionless markets.</p>
+      <div class="formula">C = S·N(d₁) − K·e^(−rT)·N(d₂)</div>
+      <div class="formula">P = K·e^(−rT)·N(−d₂) − S·N(−d₁)</div>
+      <div class="formula">d₁ = [ln(S/K) + (r + σ²/2)T] / (σ√T)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;d₂ = d₁ − σ√T</div>
+      <p>Where <strong>S</strong> = spot, <strong>K</strong> = strike, <strong>r</strong> = risk-free rate, <strong>T</strong> = time to expiry, <strong>σ</strong> = implied volatility, <strong>N(·)</strong> = cumulative normal distribution.</p>
+
+      <h2>Put-Call Parity</h2>
+      <p>Foundational no-arbitrage relationship for European options:</p>
+      <div class="formula">C − P = S − K·e^(−rT)</div>
+      <p>A violation creates a risk-free arbitrage. Institutions use this to synthesise positions and spot mispricing across legs.</p>
+
+      <h2>Key Inputs & Their Effects</h2>
+      <table>
+        <thead><tr><th>Input ↑</th><th>Call Value</th><th>Put Value</th><th>Intuition</th></tr></thead>
+        <tbody>
+          <tr><td>Spot Price (S)</td><td class="up">↑</td><td class="dn">↓</td><td>Calls go deeper ITM; puts go further OTM</td></tr>
+          <tr><td>Strike Price (K)</td><td class="dn">↓</td><td class="up">↑</td><td>Higher strike makes calls less valuable</td></tr>
+          <tr><td>Time to Expiry (T)</td><td class="up">↑</td><td class="up">↑</td><td>More time = more optionality for both</td></tr>
+          <tr><td>Implied Volatility (σ)</td><td class="up">↑</td><td class="up">↑</td><td>Higher vol expands distribution, benefits both</td></tr>
+          <tr><td>Risk-Free Rate (r)</td><td class="up">↑</td><td class="dn">↓</td><td>Higher rates reduce PV of strike (call benefit)</td></tr>
+          <tr><td>Dividends</td><td class="dn">↓</td><td class="up">↑</td><td>Ex-div drop reduces spot, hurts calls</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         PAGE: GREEKS
+    ══════════════════════════════════════════ -->
+    <div class="page" id="page-greeks">
+      <h1>The Greeks</h1>
+      <p class="lead">Greeks measure sensitivities of option value to changes in underlying parameters. Institutional desks manage Greeks in aggregate across their book — not position-by-position.</p>
+
+      <div class="greek-grid">
+        <div class="greek-card">
+          <div class="greek-symbol">Δ</div>
+          <div class="greek-name">Delta</div>
+          <div class="greek-desc">Rate of change of option price vs. underlying move. Range: −1 to +1.</div>
+        </div>
+        <div class="greek-card">
+          <div class="greek-symbol">Γ</div>
+          <div class="greek-name">Gamma</div>
+          <div class="greek-desc">Rate of change of delta. Highest ATM and near expiry. Long gamma = convexity.</div>
+        </div>
+        <div class="greek-card">
+          <div class="greek-symbol">Θ</div>
+          <div class="greek-name">Theta</div>
+          <div class="greek-desc">Daily time decay. Option sellers collect theta. Negative for long options.</div>
+        </div>
+        <div class="greek-card">
+          <div class="greek-symbol">V</div>
+          <div class="greek-name">Vega</div>
+          <div class="greek-desc">Sensitivity to 1% change in implied vol. Long options are long vega.</div>
+        </div>
+        <div class="greek-card">
+          <div class="greek-symbol">ρ</div>
+          <div class="greek-name">Rho</div>
+          <div class="greek-desc">Sensitivity to interest rate changes. More significant for long-dated options.</div>
+        </div>
+      </div>
+
+      <h2>Delta (Δ) — Directional Exposure</h2>
+      <p>Delta approximates the equivalent share exposure of an options position. A call with Δ = 0.50 behaves like holding 50 shares per 100-share contract. Institutions aggregate delta across their entire portfolio to understand net directional exposure.</p>
+      <div class="formula">Long Call: Δ ∈ (0, 1)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Long Put: Δ ∈ (−1, 0)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Short Call: Δ ∈ (−1, 0)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Short Put: Δ ∈ (0, 1)</div>
+
+      <div class="scenario">
+        <div class="scenario-label">Institutional Use — Delta Hedging</div>
+        <p>A market-maker who sells 1,000 SPX calls with Δ = 0.45 is short −450 deltas. To hedge, they buy 450 "delta-equivalent" units of SPX futures. As the market moves, they continuously rebalance — this dynamic delta hedging is a core desk function.</p>
+      </div>
+
+      <h2>Gamma (Γ) — Convexity</h2>
+      <p>Gamma measures how quickly delta changes as the underlying moves. Long gamma positions (long options) benefit from large moves in either direction — the delta "self-adjusts" in your favour. Short gamma positions (sold options) are hurt by large moves.</p>
+
+      <table>
+        <thead><tr><th>Position</th><th>Gamma</th><th>P&L Profile</th><th>Breakeven Condition</th></tr></thead>
+        <tbody>
+          <tr><td>Long calls / puts</td><td class="up">Long Γ</td><td>Profits from large moves</td><td>Move must exceed theta decay</td></tr>
+          <tr><td>Short calls / puts</td><td class="dn">Short Γ</td><td>Profits from small moves / stagnation</td><td>Underlying stays near strike</td></tr>
+        </tbody>
+      </table>
+
+      <div class="scenario">
+        <div class="scenario-label">Gamma Scalping</div>
+        <p>An institution buys ATM straddles (long gamma) and repeatedly delta-hedges as the underlying oscillates. Each hedge locks in a small P&L. If realised volatility exceeds implied volatility, the cumulative scalping profit exceeds the premium paid — a core vol arbitrage strategy.</p>
+      </div>
+
+      <h2>Theta (Θ) — Time Decay</h2>
+      <p>Theta represents the daily erosion of an option's value, all else equal. It is negative for option buyers and positive for option sellers. Theta is not linear — it accelerates in the final 30 days before expiry, particularly for ATM options.</p>
+      <div class="formula">Θ = −(S·σ·N'(d₁)) / (2√T) − r·K·e^(−rT)·N(d₂)&nbsp;&nbsp;&nbsp;[for calls]</div>
+
+      <h2>Vega (ν) — Volatility Sensitivity</h2>
+      <p>Vega measures the dollar change in option value per 1% rise in implied volatility. Both calls and puts are long vega when bought. Vega is highest for ATM options and longer-dated options. Institutions with large options books actively manage vega exposure — a sudden vol spike (e.g., VIX move from 16 to 35) can severely impact a short-vega book.</p>
+      <div class="formula">ν = S · √T · N'(d₁)</div>
+
+      <h2>Second-Order Greeks</h2>
+      <table>
+        <thead><tr><th>Greek</th><th>Measures</th><th>Relevance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Vanna</strong></td><td>∂Δ/∂σ (or ∂ν/∂S)</td><td>Sensitivity of delta to vol changes. Critical for skew hedging.</td></tr>
+          <tr><td><strong>Volga / Vomma</strong></td><td>∂ν/∂σ (convexity of vol)</td><td>Sensitivity of vega to vol. Long OTM options are long volga.</td></tr>
+          <tr><td><strong>Charm</strong></td><td>∂Δ/∂T (delta decay)</td><td>How delta changes over time. Relevant for daily hedging rolls.</td></tr>
+          <tr><td><strong>Speed</strong></td><td>∂Γ/∂S</td><td>Rate of gamma change. Important for managing convexity near expiry.</td></tr>
+          <tr><td><strong>Colour</strong></td><td>∂Γ/∂T</td><td>How gamma changes over time. Drives pin risk management.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         PAGE: STRATEGIES
+    ══════════════════════════════════════════ -->
+    <div class="page" id="page-strategies">
+      <h1>Options Strategies</h1>
+      <p class="lead">Each strategy encodes a view on direction, volatility, and time. Institutions choose legs based on cost efficiency, regulatory capital treatment, and risk profile.</p>
+
+      <h2>Single-Leg Positions</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-call">BULLISH</span> LONG CALL</div>
+          <div class="card-title">Long Call</div>
+          <p>Max loss: premium. Max gain: unlimited. Use: leveraged bullish bet, defined-risk substitute for long stock.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-put">BEARISH</span> LONG PUT</div>
+          <div class="card-title">Long Put</div>
+          <p>Max loss: premium. Max gain: strike − premium. Use: directional short, portfolio hedge.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-put">YIELD</span> SHORT CALL</div>
+          <div class="card-title">Short Call (Naked)</div>
+          <p>Max gain: premium. Max loss: unlimited. Dangerous without hedge. Used by desks only with offsetting inventory.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-call">YIELD</span> SHORT PUT</div>
+          <div class="card-title">Short Put (Cash-Secured)</div>
+          <p>Max gain: premium. Max loss: strike − premium. Use: get paid to acquire stock at desired entry level.</p>
+        </div>
+      </div>
+
+      <h2>Spreads — Defined Risk, Defined Reward</h2>
+      <div class="matrix">
+        <div class="strat-card">
+          <div class="strat-name">Bull Call Spread</div>
+          <div class="strat-legs">Buy K1 Call | Sell K2 Call (K2 > K1)</div>
+          <div class="strat-desc">Reduces cost of a long call by selling upside. Max gain = K2 − K1 − net debit. Max loss = net debit. Use when moderately bullish — best in low-vol environments.</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Bear Put Spread</div>
+          <div class="strat-legs">Buy K1 Put | Sell K2 Put (K2 < K1)</div>
+          <div class="strat-desc">Reduces cost of a long put by selling downside. Max gain = K1 − K2 − net debit. Use when moderately bearish and vol is expensive.</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Bull Put Spread</div>
+          <div class="strat-legs">Sell K1 Put | Buy K2 Put (K2 < K1)</div>
+          <div class="strat-desc">Credit received upfront. Max gain = net credit. Max loss = K1 − K2 − credit. Use: bullish / neutral, generates income, defined downside risk.</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Bear Call Spread</div>
+          <div class="strat-legs">Sell K1 Call | Buy K2 Call (K2 > K1)</div>
+          <div class="strat-desc">Credit received. Bearish income trade. Max loss capped at spread width minus credit. Use: range-bound or mildly bearish views.</div>
+        </div>
+      </div>
+
+      <h2>Volatility Strategies</h2>
+      <div class="matrix">
+        <div class="strat-card">
+          <div class="strat-name">Long Straddle</div>
+          <div class="strat-legs">Buy ATM Call | Buy ATM Put (same expiry, same strike)</div>
+          <div class="strat-desc">Long gamma, long vega. Profits if underlying moves significantly in either direction. Loses to time decay. Use: pre-event trades (earnings, FOMC), when expecting vol expansion.</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Short Straddle</div>
+          <div class="strat-legs">Sell ATM Call | Sell ATM Put</div>
+          <div class="strat-desc">Short gamma, short vega. Maximum yield if spot stays pinned near strike at expiry. Risk: unlimited on both sides. Requires active delta hedging. Classic MM strategy.</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Long Strangle</div>
+          <div class="strat-legs">Buy OTM Call | Buy OTM Put</div>
+          <div class="strat-desc">Cheaper than straddle but needs a larger move to profit. Same long-vol theme. Better risk-adjusted for large tail scenarios (e.g., binary events).</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Short Strangle</div>
+          <div class="strat-legs">Sell OTM Call | Sell OTM Put</div>
+          <div class="strat-desc">Wider profit zone than short straddle. Collects premium as long as underlying stays within a range. A core hedge-fund theta-harvesting approach.</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Iron Condor</div>
+          <div class="strat-legs">Bull Put Spread + Bear Call Spread</div>
+          <div class="strat-desc">Four-leg. Profit: spot stays within inner strikes. All risk defined. Popular for systematic income in institutional vol books. No naked exposure.</div>
+        </div>
+        <div class="strat-card">
+          <div class="strat-name">Long Butterfly</div>
+          <div class="strat-legs">Buy K1, Sell 2×K2, Buy K3 Call</div>
+          <div class="strat-desc">Max profit at K2 at expiry. Net debit, low cost. Targets a very specific spot outcome. Used by institutions to express pin risk around a level.</div>
+        </div>
+      </div>
+
+      <h2>Ratio & Complex Structures</h2>
+      <table>
+        <thead><tr><th>Strategy</th><th>Legs</th><th>View</th><th>Risk</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ratio Call Spread</strong></td><td>Buy 1 Call K1, Sell 2 Calls K2</td><td>Bullish but not runaway rally</td><td>Uncapped above K2 × 2 if naked</td></tr>
+          <tr><td><strong>Backspread (Call)</strong></td><td>Sell 1 Call K1, Buy 2 Calls K2</td><td>Long vol, wants big rally or crash</td><td>Capped loss in middle</td></tr>
+          <tr><td><strong>Calendar Spread</strong></td><td>Sell near-term, Buy far-term (same K)</td><td>Short-term range-bound + vol expansion</td><td>Near-term move beyond strike</td></tr>
+          <tr><td><strong>Diagonal Spread</strong></td><td>Different strike AND different expiry</td><td>Mixed directional + vol view</td><td>Complex risk surface</td></tr>
+          <tr><td><strong>Condor</strong></td><td>4 calls or 4 puts, 4 different strikes</td><td>Very tight pin at expiry</td><td>All defined</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         PAGE: INSTITUTIONAL
+    ══════════════════════════════════════════ -->
+    <div class="page" id="page-institutional">
+      <h1>Institutional Applications</h1>
+      <p class="lead">Institutions use options not just directionally but as precision tools for hedging, yield enhancement, regulatory capital management, and structured product construction.</p>
+
+      <h2>1. Portfolio Hedging</h2>
+
+      <h3>Index Put Buying (Tail Hedge)</h3>
+      <p>A long-only equity fund manager buys OTM SPX puts to protect against a sharp drawdown. The puts act as portfolio insurance — they appreciate dramatically if markets sell off, partially or fully offsetting equity losses.</p>
+      <div class="scenario">
+        <div class="scenario-label">Scenario: Pension Fund Tail Protection</div>
+        <p>A $5B equity fund buys 3-month SPX puts at 5% OTM, spending ~0.5% of NAV in premium. If SPX drops 20%, put payoff may offset 8–12% of losses. The cost is a drag on returns but reduces max drawdown risk — critical for defined-benefit liability matching.</p>
+      </div>
+
+      <h3>Collar — Zero-Cost Hedge</h3>
+      <div class="formula">Collar = Long Stock + Long OTM Put + Short OTM Call</div>
+      <p>The sold call premium finances the put. Net cost approaches zero. Upside is capped at the call strike; downside is protected below the put strike. Used extensively by corporate insiders and concentrated-equity holders.</p>
+
+      <h3>Protective Put on Single Name</h3>
+      <p>Portfolio managers hedging concentrated single-stock risk. More expensive than index puts due to correlation risk — individual names carry idiosyncratic risk not present in the index.</p>
+
+      <h2>2. Covered Call Writing (Yield Enhancement)</h2>
+      <div class="formula">Covered Call = Long Underlying + Short OTM Call</div>
+      <p>An institution holding a large equity position sells OTM calls to generate premium income. Works well in flat-to-mildly-bullish markets. The premium received reduces the cost basis of the holding. Risk: stock rallies above the strike and position gets called away (opportunity cost).</p>
+      <div class="scenario">
+        <div class="scenario-label">Scenario: Equity Income Fund</div>
+        <p>A UK equity income fund holds £500M of FTSE 100 stocks. Each month, the desk sells 1-month calls at 2–3% OTM, collecting ~0.3–0.5% per month in premium. Annualised, this generates ~4–6% extra income — boosting total return in sideways markets.</p>
+      </div>
+
+      <h2>3. Cash-Secured Put Selling (Stock Acquisition)</h2>
+      <p>An institution wants to acquire stock at a lower price. Instead of placing a limit order, they sell ATM or OTM puts. If assigned, they buy the stock at the strike (effectively at a discount = strike − premium). If not assigned, they keep the premium. A disciplined entry strategy.</p>
+
+      <h2>4. Volatility Arbitrage</h2>
+      <p>The desk trades the spread between implied volatility (what the market prices into options) and realised volatility (what the market actually does). If implied vol is elevated relative to realised vol, a vol seller will profit over time.</p>
+      <div class="formula">Expected P&L ≈ ½ · Γ · S² · (σ²_realised − σ²_implied)</div>
+      <div class="scenario">
+        <div class="scenario-label">Scenario: Delta-Hedged Straddle Sale</div>
+        <p>The desk sells an ATM SPX straddle when 30-day IV = 22%. The realised volatility over the next 30 days turns out to be 15%. With continuous delta hedging, the desk captures the vol spread as gamma-scalping profit — a positive carry position.</p>
+      </div>
+
+      <h2>5. Dispersion Trading</h2>
+      <p>A sophisticated institutional strategy: sell index vol (short straddle on SPX) and buy single-stock vol (long straddles on SPX components). Profits when single-stock correlation is lower than the index implies — i.e., stocks move independently rather than together.</p>
+      <div class="formula">Dispersion P&L ∝ (Implied Correlation) − (Realised Correlation)</div>
+
+      <h2>6. Risk Reversal</h2>
+      <div class="formula">Risk Reversal = Long OTM Call + Short OTM Put (or vice versa)</div>
+      <p>Near-zero-cost directional bet. FX desks use risk reversals extensively. In equities, selling OTM puts and buying OTM calls generates net credit while expressing a bullish view. The put skew typically makes the OTM put more expensive, so the sold put generates higher premium.</p>
+
+      <h2>7. Structured Products</h2>
+      <table>
+        <thead><tr><th>Product</th><th>Options Component</th><th>Client Use Case</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Capital-Protected Note</strong></td><td>Zero-coupon bond + long ATM call</td><td>Conservative investors want equity upside with capital guarantee</td></tr>
+          <tr><td><strong>Autocallable / KIKO</strong></td><td>Embedded barrier options, digital triggers</td><td>Enhanced yield for investors comfortable with knock-in put risk</td></tr>
+          <tr><td><strong>Variance Swap</strong></td><td>Replicating portfolio of options across all strikes</td><td>Pure vol exposure without delta — favoured by vol funds</td></tr>
+          <tr><td><strong>Volatility Swap</strong></td><td>Payoff on realised vol vs. strike vol</td><td>Direct vol exposure; convexity adj. vs variance swap</td></tr>
+          <tr><td><strong>Cliquet / Ratchet</strong></td><td>Series of forward-starting options</td><td>Locks in periodic gains — insurance, annuity products</td></tr>
+        </tbody>
+      </table>
+
+      <h2>8. Options Overlay Programmes</h2>
+      <p>Large pension funds and endowments run systematic options overlay programmes — selling covered calls or cash-secured puts across their entire equity book on a rolling basis. Managed by a dedicated options desk or outsourced to an options overlay manager. Target: 1–3% annual premium income to supplement equity returns.</p>
+
+      <h2>9. Regulatory & Capital Considerations</h2>
+      <p>Under Basel III / FRTB, options positions generate capital charges based on delta, vega, and curvature sensitivities. Institutions optimise their book to minimise RWA (Risk-Weighted Assets) while maintaining desired P&L exposure. Defined-risk strategies (spreads, collars) attract lower capital charges than naked short options.</p>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         PAGE: VOLATILITY
+    ══════════════════════════════════════════ -->
+    <div class="page" id="page-volatility">
+      <h1>Volatility — The Core Variable</h1>
+      <p class="lead">For institutions, vol is the primary tradeable quantity. Direction is secondary to understanding and trading the vol surface.</p>
+
+      <h2>Implied vs Realised Volatility</h2>
+      <table>
+        <thead><tr><th>Metric</th><th>Definition</th><th>Calculation</th><th>Market Relevance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Implied Vol (IV)</strong></td><td>Market's expectation of future vol baked into option prices</td><td>Back-solved from option prices via BS model</td><td>What you pay for options — the "price" of vol</td></tr>
+          <tr><td><strong>Realised Vol (HV)</strong></td><td>Actual volatility observed over a past period</td><td>σ = std dev of daily returns × √252</td><td>What you actually got — the "value" of vol</td></tr>
+          <tr><td><strong>Vol Premium</strong></td><td>IV − RV (typically positive)</td><td>Persistent in most markets</td><td>Why short vol has historically been profitable</td></tr>
+        </tbody>
+      </table>
+
+      <h2>The Volatility Surface</h2>
+      <p>A 3D map of implied volatility across strikes (moneyness) and expiries (term structure). The surface is not flat — it has two key features:</p>
+
+      <h3>Volatility Skew (Smile)</h3>
+      <p>In equity markets, OTM puts carry higher IV than OTM calls — the "put skew." This reflects demand for downside protection and the empirical observation that markets fall faster than they rise. The skew steepens in risk-off environments.</p>
+      <div class="formula">Skew = IV(95% strike) − IV(105% strike)&nbsp;&nbsp;&nbsp;[typically positive for equities]</div>
+
+      <h3>Term Structure</h3>
+      <p>IV varies across expiries. In normal conditions, longer-dated options have slightly higher IV (upward sloping). Before risk events (earnings, elections, FOMC), the near-term IV spikes above the long-term — creating an inverted (backwardated) term structure.</p>
+
+      <h2>VIX — The Fear Gauge</h2>
+      <p>The CBOE VIX measures 30-day implied volatility of the S&P 500 using a model-free replication of variance across the option chain. It is not simply the ATM vol — it integrates the full skew.</p>
+      <div class="formula">VIX² = (2/T) · Σ [ΔK/K²] · e^(rT) · Q(K) − (1/T) · [F/K₀ − 1]²</div>
+      <table>
+        <thead><tr><th>VIX Level</th><th>Market Regime</th><th>Institutional Response</th></tr></thead>
+        <tbody>
+          <tr><td class="up">&lt; 15</td><td>Extreme complacency / low vol regime</td><td>Buy vol cheaply — long straddles, long puts as hedge</td></tr>
+          <tr><td class="nu">15–20</td><td>Normal market conditions</td><td>Neutral vol positioning, systematic selling in range</td></tr>
+          <tr><td>20–30</td><td>Elevated uncertainty</td><td>Reduce short gamma exposure; increase hedge ratio</td></tr>
+          <tr><td class="dn">&gt; 30</td><td>Distress / crisis</td><td>Buy back short vol, sell puts into the spike if cash-rich</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Vol Regime & Strategy Selection</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-vol">LOW VOL</span></div>
+          <div class="card-title">Buy Vol</div>
+          <p>Long straddles, long strangles, long variance. Cheap options — you pay little for large move potential. Best before known catalysts.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-vol">HIGH VOL</span></div>
+          <div class="card-title">Sell Vol</div>
+          <p>Iron condors, short strangles, covered calls. Premium is rich — harvest theta. Requires active delta hedging and risk management.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-vol">VOL SPIKE</span></div>
+          <div class="card-title">Mean Reversion</div>
+          <p>Sell near-term vol, buy far-term. Calendar spreads. Volatility spikes are statistically mean-reverting — sell the panic.</p>
+        </div>
+        <div class="card">
+          <div class="card-meta"><span class="tag tag-vol">SKEW TRADE</span></div>
+          <div class="card-title">Risk Reversal</div>
+          <p>Trade the skew differential: buy cheap OTM calls, sell expensive OTM puts (or vice versa). Pure skew exposure.</p>
+        </div>
+      </div>
+
+      <h2>Variance Swaps vs Volatility Swaps</h2>
+      <table>
+        <thead><tr><th></th><th>Variance Swap</th><th>Volatility Swap</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Payoff</strong></td><td>(σ²_realised − K_var) × Notional</td><td>(σ_realised − K_vol) × Notional</td></tr>
+          <tr><td><strong>Replication</strong></td><td>Static: log contract across all strikes</td><td>No static replication — model-dependent</td></tr>
+          <tr><td><strong>Convexity</strong></td><td>Long convexity (non-linear in vol)</td><td>Linear in vol</td></tr>
+          <tr><td><strong>Fair Strike</strong></td><td>K_var ≈ ATM vol² (roughly)</td><td>K_vol &lt; √K_var (Jensen's inequality)</td></tr>
+          <tr><td><strong>Institutional Use</strong></td><td>Pure vol exposure; vega-notional hedging</td><td>Used when linear vol exposure desired</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         PAGE: PAYOFF LAB (INTERACTIVE)
+    ══════════════════════════════════════════ -->
+    <div class="page" id="page-payoff">
+      <h1>Payoff Laboratory</h1>
+      <p class="lead">Interactively visualise payoff diagrams for major options strategies. Adjust parameters to build intuition.</p>
+
+      <div class="payoff-wrap">
+        <div class="payoff-header">
+          <div class="payoff-title">Strategy Payoff at Expiry</div>
+          <div class="payoff-tags" id="strat-tags"></div>
+        </div>
+
+        <div class="controls">
+          <div class="ctrl-group">
+            <label>Strategy</label>
+            <select id="stratSelect" style="background:#111520; color:#e8eaf0; border:1px solid #2a3050; padding:6px 10px; border-radius:6px; font-family:'DM Sans',sans-serif; font-size:0.85rem;">
+              <option value="long_call">Long Call</option>
+              <option value="long_put">Long Put</option>
+              <option value="short_call">Short Call</option>
+              <option value="short_put">Short Put</option>
+              <option value="bull_call">Bull Call Spread</option>
+              <option value="bear_put">Bear Put Spread</option>
+              <option value="straddle">Long Straddle</option>
+              <option value="strangle">Long Strangle</option>
+              <option value="iron_condor">Iron Condor</option>
+              <option value="covered_call">Covered Call</option>
+              <option value="collar">Collar</option>
+              <option value="butterfly">Long Butterfly</option>
+            </select>
+          </div>
+          <div class="ctrl-group">
+            <label>Spot / Strike K1 <span class="ctrl-val" id="v-strike">100</span></label>
+            <input type="range" id="strike" min="80" max="120" value="100" step="1">
+          </div>
+          <div class="ctrl-group">
+            <label>Premium <span class="ctrl-val" id="v-prem">5</span></label>
+            <input type="range" id="prem" min="1" max="20" value="5" step="0.5">
+          </div>
+          <div class="ctrl-group">
+            <label>Strike K2 <span class="ctrl-val" id="v-k2">110</span></label>
+            <input type="range" id="k2" min="85" max="130" value="110" step="1">
+          </div>
+        </div>
+
+        <canvas id="payoffChart" height="280"></canvas>
+
+        <div style="display:flex; gap:2rem; margin-top:1rem;">
+          <div style="font-size:0.8rem;">
+            <span style="color:var(--muted);">Max Gain:</span>
+            <span style="color:var(--green); font-family:var(--mono); margin-left:6px;" id="stat-gain">—</span>
+          </div>
+          <div style="font-size:0.8rem;">
+            <span style="color:var(--muted);">Max Loss:</span>
+            <span style="color:var(--red); font-family:var(--mono); margin-left:6px;" id="stat-loss">—</span>
+          </div>
+          <div style="font-size:0.8rem;">
+            <span style="color:var(--muted);">Breakeven:</span>
+            <span style="color:var(--gold2); font-family:var(--mono); margin-left:6px;" id="stat-be">—</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>Quick-Reference Payoffs</h2>
+      <table>
+        <thead><tr><th>Strategy</th><th>Payoff Formula</th><th>Max Gain</th><th>Max Loss</th><th>Breakeven</th></tr></thead>
+        <tbody>
+          <tr><td>Long Call</td><td>max(S−K, 0) − C</td><td class="up">Unlimited</td><td class="dn">−C (premium)</td><td>K + C</td></tr>
+          <tr><td>Long Put</td><td>max(K−S, 0) − P</td><td class="up">K − P</td><td class="dn">−P (premium)</td><td>K − P</td></tr>
+          <tr><td>Short Call</td><td>C − max(S−K, 0)</td><td class="up">+C</td><td class="dn">Unlimited</td><td>K + C</td></tr>
+          <tr><td>Short Put</td><td>P − max(K−S, 0)</td><td class="up">+P</td><td class="dn">−(K − P)</td><td>K − P</td></tr>
+          <tr><td>Bull Call Spread</td><td>min(S−K1,K2−K1)−net debit</td><td class="up">K2−K1−debit</td><td class="dn">−net debit</td><td>K1 + debit</td></tr>
+          <tr><td>Long Straddle</td><td>|S−K| − (C+P)</td><td class="up">Unlimited</td><td class="dn">−(C+P)</td><td>K±(C+P)</td></tr>
+          <tr><td>Iron Condor</td><td>Net credit − spread losses</td><td class="up">Net credit</td><td class="dn">Spread width − credit</td><td>Inner strikes ± credit</td></tr>
+          <tr><td>Covered Call</td><td>S−S₀ + C − max(S−K,0)</td><td class="up">K−S₀+C</td><td class="dn">−S₀ + C</td><td>S₀ − C</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ── Navigation ──
+const pages = document.querySelectorAll('.page');
+const sidebarEl = document.getElementById('sidebar');
+
+const sidebarData = {
+  fundamentals: [
+    {label:'What Is an Option?', id:''},
+    {label:'Moneyness', id:''},
+    {label:'Premium Decomposition', id:''},
+    {label:'Black-Scholes', id:''},
+    {label:'Put-Call Parity', id:''},
+    {label:'Key Input Effects', id:''},
+  ],
+  greeks: [
+    {label:'Overview', id:''},
+    {label:'Delta', id:''},
+    {label:'Gamma', id:''},
+    {label:'Theta', id:''},
+    {label:'Vega', id:''},
+    {label:'Second-Order Greeks', id:''},
+  ],
+  strategies: [
+    {label:'Single-Leg Positions', id:''},
+    {label:'Spreads', id:''},
+    {label:'Volatility Strategies', id:''},
+    {label:'Ratio & Complex', id:''},
+  ],
+  institutional: [
+    {label:'Portfolio Hedging', id:''},
+    {label:'Covered Call Writing', id:''},
+    {label:'Put Selling / Acquisition', id:''},
+    {label:'Volatility Arbitrage', id:''},
+    {label:'Dispersion Trading', id:''},
+    {label:'Structured Products', id:''},
+    {label:'Overlay Programmes', id:''},
+    {label:'Regulatory Capital', id:''},
+  ],
+  volatility: [
+    {label:'IV vs Realised Vol', id:''},
+    {label:'Volatility Surface', id:''},
+    {label:'VIX', id:''},
+    {label:'Vol Regime & Strategy', id:''},
+    {label:'Variance Swaps', id:''},
+  ],
+  payoff: [
+    {label:'Interactive Payoff', id:''},
+    {label:'Quick-Reference Table', id:''},
+  ],
+};
+
+function buildSidebar(page) {
+  const items = sidebarData[page] || [];
+  sidebarEl.innerHTML = items.map(item =>
+    `<a class="sb-link">${item.label}</a>`
+  ).join('');
+}
+
+function showPage(name, navEl) {
+  pages.forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+  buildSidebar(name);
+  if (name === 'payoff') setTimeout(drawChart, 100);
+}
+
+buildSidebar('fundamentals');
+
+// ── Payoff Chart ──
+let chart = null;
+
+const stratDefs = {
+  long_call:    { tags:['BULLISH','LONG GAMMA','DEBIT'], color:'#4ec994' },
+  long_put:     { tags:['BEARISH','LONG GAMMA','DEBIT'], color:'#e05c5c' },
+  short_call:   { tags:['BEARISH','SHORT GAMMA','CREDIT'], color:'#e05c5c' },
+  short_put:    { tags:['BULLISH','SHORT GAMMA','CREDIT'], color:'#4ec994' },
+  bull_call:    { tags:['BULLISH','DEFINED RISK','DEBIT'], color:'#4ec994' },
+  bear_put:     { tags:['BEARISH','DEFINED RISK','DEBIT'], color:'#e05c5c' },
+  straddle:     { tags:['LONG VOL','LONG GAMMA','DEBIT'], color:'#5b9cf6' },
+  strangle:     { tags:['LONG VOL','CHEAP','DEBIT'], color:'#5b9cf6' },
+  iron_condor:  { tags:['NEUTRAL','SHORT VOL','CREDIT'], color:'#c9a84c' },
+  covered_call: { tags:['NEUTRAL/BULLISH','YIELD','COMBO'], color:'#38c9b0' },
+  collar:       { tags:['HEDGE','ZERO COST','DEFINED'], color:'#38c9b0' },
+  butterfly:    { tags:['NEUTRAL','PIN TRADE','DEBIT'], color:'#c9a84c' },
+};
+
+function payoff(strat, S, K1, K2, prem) {
+  const p = prem;
+  const p2 = prem * 0.6;
+  switch(strat) {
+    case 'long_call':    return Math.max(S-K1,0) - p;
+    case 'long_put':     return Math.max(K1-S,0) - p;
+    case 'short_call':   return p - Math.max(S-K1,0);
+    case 'short_put':    return p - Math.max(K1-S,0);
+    case 'bull_call':    return Math.min(Math.max(S-K1,0),K2-K1) - (p-p2);
+    case 'bear_put':     return Math.min(Math.max(K1-S,0),K1-K2) - (p-p2);
+    case 'straddle':     return Math.max(S-K1,0) + Math.max(K1-S,0) - 2*p;
+    case 'strangle': {
+      const k_lo = K1 - 5, k_hi = K2;
+      return Math.max(S-k_hi,0) + Math.max(k_lo-S,0) - (p+p2);
+    }
+    case 'iron_condor': {
+      const kp1=K1-10, kp2=K1-3, kc1=K2+3, kc2=K2+10;
+      const credit = p;
+      const putSpread = Math.max(kp1-S,0) - Math.max(kp2-S,0);
+      const callSpread = Math.max(S-kc1,0) - Math.max(S-kc2,0);
+      return credit - putSpread - callSpread;
+    }
+    case 'covered_call': {
+      const stock_pnl = S - K1;
+      return stock_pnl + p - Math.max(S-K2,0);
+    }
+    case 'collar': {
+      const stock_pnl2 = S - K1;
+      const put_val = Math.max(K1*0.95 - S, 0);
+      const call_sold = -Math.max(S - K2, 0);
+      return stock_pnl2 + put_val + call_sold;
+    }
+    case 'butterfly': {
+      const K_mid = (K1+K2)/2;
+      return Math.max(S-K1,0) - 2*Math.max(S-K_mid,0) + Math.max(S-K2,0) - (p*0.5);
+    }
+    default: return 0;
+  }
+}
+
+function statText(strat, K1, K2, prem) {
+  const p = prem, p2 = prem*0.6;
+  const inf = '∞';
+  switch(strat) {
+    case 'long_call':   return {gain:inf, loss:`-${p.toFixed(1)}`, be:`${(K1+p).toFixed(1)}`};
+    case 'long_put':    return {gain:`${(K1-p).toFixed(1)}`, loss:`-${p.toFixed(1)}`, be:`${(K1-p).toFixed(1)}`};
+    case 'short_call':  return {gain:`+${p.toFixed(1)}`, loss:`-${inf}`, be:`${(K1+p).toFixed(1)}`};
+    case 'short_put':   return {gain:`+${p.toFixed(1)}`, loss:`-${(K1-p).toFixed(1)}`, be:`${(K1-p).toFixed(1)}`};
+    case 'bull_call':   return {gain:`${(K2-K1-(p-p2)).toFixed(1)}`, loss:`-${(p-p2).toFixed(1)}`, be:`${(K1+p-p2).toFixed(1)}`};
+    case 'straddle':    return {gain:inf, loss:`-${(2*p).toFixed(1)}`, be:`${K1}±${(2*p).toFixed(1)}`};
+    case 'iron_condor': return {gain:`+${p.toFixed(1)} (credit)`, loss:`-${(7-p).toFixed(1)}`, be:`${K1-3-p} / ${K2+3+p}`};
+    default:            return {gain:'—', loss:'—', be:'—'};
+  }
+}
+
+function drawChart() {
+  const strat = document.getElementById('stratSelect').value;
+  const K1 = +document.getElementById('strike').value;
+  const K2 = +document.getElementById('k2').value;
+  const prem = +document.getElementById('prem').value;
+
+  const range = [];
+  const lo = Math.min(K1, K2) - 25;
+  const hi = Math.max(K1, K2) + 25;
+  for (let s = lo; s <= hi; s += 0.5) range.push(s);
+
+  const pnl = range.map(s => payoff(strat, s, K1, K2, prem));
+  const color = (stratDefs[strat] || {color:'#c9a84c'}).color;
+
+  const zeroLine = range.map(() => 0);
+
+  // Update tags
+  const tags = (stratDefs[strat] || {tags:[]}).tags;
+  document.getElementById('strat-tags').innerHTML = tags.map(t =>
+    `<span class="tag tag-inst">${t}</span>`
+  ).join('');
+
+  // Update stats
+  const s = statText(strat, K1, K2, prem);
+  document.getElementById('stat-gain').textContent = s.gain;
+  document.getElementById('stat-loss').textContent = s.loss;
+  document.getElementById('stat-be').textContent = s.be;
+
+  const ctx = document.getElementById('payoffChart').getContext('2d');
+
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: range.map(s => s.toFixed(1)),
+      datasets: [
+        {
+          label: 'P&L at Expiry',
+          data: pnl,
+          borderColor: color,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          fill: {
+            target: {value: 0},
+            above: 'rgba(78,201,148,0.1)',
+            below: 'rgba(224,92,92,0.1)',
+          },
+          tension: 0.1,
+        },
+        {
+          label: '',
+          data: zeroLine,
+          borderColor: 'rgba(255,255,255,0.12)',
+          borderWidth: 1,
+          pointRadius: 0,
+          borderDash: [4,4],
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 300 },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#171d2e',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          titleColor: '#c9a84c',
+          bodyColor: '#e8eaf0',
+          callbacks: {
+            title: ctx => `Spot: ${ctx[0].label}`,
+            label: ctx => ctx.datasetIndex === 0 ? `P&L: ${(+ctx.raw).toFixed(2)}` : null,
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#8891a8', font: { family: 'DM Mono', size: 10 }, maxTicksLimit: 12 },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          border: { color: 'rgba(255,255,255,0.08)' },
+        },
+        y: {
+          ticks: { color: '#8891a8', font: { family: 'DM Mono', size: 10 } },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          border: { color: 'rgba(255,255,255,0.08)' },
+        }
+      }
+    }
+  });
+}
+
+['stratSelect','strike','prem','k2'].forEach(id => {
+  document.getElementById(id).addEventListener('input', function() {
+    if (id === 'strike') document.getElementById('v-strike').textContent = this.value;
+    if (id === 'prem') document.getElementById('v-prem').textContent = this.value;
+    if (id === 'k2') document.getElementById('v-k2').textContent = this.value;
+    drawChart();
+  });
+});
+</script>
+</body>
+</html>
